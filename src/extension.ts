@@ -5,23 +5,34 @@ import * as vscode from "vscode";
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  vscode.commands.registerCommand("vscode-omikuji.omikuji", () => {
-    const omikujiCandidates = [
-      "大吉",
-      "吉",
-      "中吉",
-      "小吉",
-      "末吉",
-      "凶",
-      "大凶",
-    ];
-    const omikujiResult =
-      omikujiCandidates[Math.floor(Math.random() * omikujiCandidates.length)];
+  context.subscriptions.push(
+    vscode.commands.registerCommand("vscode-omikuji.omikuji", () => {
+      const omikujiCandidates = [
+        "大吉",
+        "吉",
+        "中吉",
+        "小吉",
+        "末吉",
+        "凶",
+        "大凶",
+      ];
+      const omikujiResult =
+        omikujiCandidates[Math.floor(Math.random() * omikujiCandidates.length)];
 
-    vscode.window.showInformationMessage(
-      `あなたの運勢は${omikujiResult}です！`
-    );
-  });
+      vscode.window.showInformationMessage(
+        `あなたの運勢は${omikujiResult}です！`
+      );
+    })
+  );
+
+  const button = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Right,
+    0
+  );
+  button.command = "vscode-omikuji.omikuji";
+  button.text = "おみくじを引く";
+  context.subscriptions.push(button);
+  button.show();
 }
 
 // this method is called when your extension is deactivated
