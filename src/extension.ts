@@ -6,7 +6,7 @@ import * as vscode from "vscode";
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand("vscode-omikuji.omikuji", () => {
+    vscode.commands.registerCommand("vscode-omikuji.omikuji", async () => {
       const omikujiCandidates = [
         "大吉",
         "吉",
@@ -19,9 +19,15 @@ export function activate(context: vscode.ExtensionContext) {
       const omikujiResult =
         omikujiCandidates[Math.floor(Math.random() * omikujiCandidates.length)];
 
-      vscode.window.showInformationMessage(
-        `あなたの運勢は${omikujiResult}です！`
-      );
+      const name = await vscode.window.showInputBox({
+        title: "あなたの名前は？",
+      });
+
+      if (name !== undefined) {
+        vscode.window.showInformationMessage(
+          `${name}さんの運勢は${omikujiResult}です！`
+        );
+      }
     })
   );
 
