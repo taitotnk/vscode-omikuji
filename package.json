@@ -16,8 +16,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "vscode-omikuji.helloWorld",
-        "title": "Hello World"
+        "command": "vscode-omikuji.omikuji",
+        "title": "おみくじを引く"
       }
     ]
   },
